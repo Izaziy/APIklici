@@ -1,0 +1,54 @@
+<!-- templates/index.html -->
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<title>Random Waifu Pics</title>
+<style>
+body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;margin-top:50px;}
+img{max-width:400px;border-radius:10px;margin-bottom:12px;}
+button{padding:10px 16px;font-size:16px;cursor:pointer;border-radius:8px;background:#7c3aed;color:white;border:none;}
+</style>
+</head>
+<body>
+
+<h1>Random Waifu Pics</h1>
+<img id="waifu" src="" alt="waifu" />
+<br>
+<select id="category">
+  <option value="waifu">waifu</option>
+  <option value="neko">neko</option>
+  <option value="hug">hug</option>
+  <option value="kiss">kiss</option>
+  <option value="pat">pat</option>
+  <option value="smug">smug</option>
+  <option value="handhold">handhold</option>
+  <option value="cuddle">cuddle</option>
+</select>
+<br><br>
+<button id="nextBtn">Next</button>
+
+<script>
+const img = document.getElementById("waifu");
+const btn = document.getElementById("nextBtn");
+const sel = document.getElementById("category");
+
+async function loadNext() {
+  const cat = sel.value;
+  const resp = await fetch(`/next/${cat}`);
+  const data = await resp.json();
+  if(data.url){
+    img.src = data.url;
+  } else {
+    alert("Napaka pri nalaganju slike");
+  }
+}
+
+btn.addEventListener("click", loadNext);
+
+// naloži prvo ob zagonu
+loadNext();
+</script>
+
+</body>
+</html>
