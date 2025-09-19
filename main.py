@@ -56,5 +56,3 @@ url="https://api.waifu.pics/sfw/waifu"
 data=requests.get(url).json()
 print("Prava maca😸:", data["url"])
 
-
-
